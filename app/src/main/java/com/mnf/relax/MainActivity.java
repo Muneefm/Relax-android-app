@@ -1,6 +1,7 @@
 package com.mnf.relax;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
@@ -15,11 +16,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.mnf.relax.Adapters.GridAdapter;
 import com.mnf.relax.Misc.Config;
 import com.mnf.relax.Misc.GridSpacingItemDecoration;
+import com.mnf.relax.Misc.PreferensHandler;
 import com.mnf.relax.Misc.RecyclerTouchListener;
 import com.mnf.relax.Models.Item;
 
@@ -37,18 +44,38 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer player;
     MediaPlayer mediaPlayerBeach,mediaPlayerBirds,mediaPlayerBrown;
     MediaPlayer[] mediaPlayers;
-
+    PreferensHandler pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        pref = new PreferensHandler(getApplicationContext());
+
+        if(Config.isFirstTimeUser()){
+            pref.setisFirstTimeUser(false);
+            Intent i = new Intent(MainActivity.this, LaunchActivity.class);
+            startActivity(i);
+        }
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         mediaPlayers = new  MediaPlayer[9];
         c = getApplicationContext();
          rlLayout  = findViewById(R.id.container);
          recyclerView = findViewById(R.id.recycler_view);
+
+         if(!Config.isUserPaid()) {
+             Log.e("TAG","user is not paid ads showing");
+             AdView adView = new AdView(this);
+             adView.setAdSize(AdSize.BANNER);
+             adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+         }else{
+             Log.e("TAG","user is  paid ads skiping");
+
+         }
+
          itemsList = new ArrayList<>();
          itemsList.add(new Item(0,R.raw.beach,R.drawable.beach));
         itemsList.add(new Item(1,R.raw.birds,R.drawable.bird));
@@ -62,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         itemsList.add(new Item(9,R.raw.rain,R.drawable.rain));
         itemsList.add(new Item(10,R.raw.river,R.drawable.river));
         itemsList.add(new Item(11,R.raw.sheep,R.drawable.sheep));
-        itemsList.add(new Item(12,R.raw.thunder,R.drawable.thumb));
+        itemsList.add(new Item(12,R.raw.thunder,R.drawable.thunder));
         itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes));
 
 
@@ -70,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+
+
+
+
         final GridLayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(1, Config.dpToPx(1,getApplicationContext()), true));

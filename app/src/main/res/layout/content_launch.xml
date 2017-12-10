@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.mnf.relax.LaunchActivity"
+    tools:showIn="@layout/activity_launch">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/launch_background"
+        android:id="@+id/container_relative"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome User"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textSize="45dp"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:visibility="gone"
+            android:layout_below="@+id/tv_welcome"
+            android:layout_centerHorizontal="true"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:id="@+id/tv_sub_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_subtitle"
+            android:layout_marginTop="20dp"
+
+            android:text="The earth has music for those who listen."
+            android:layout_centerHorizontal="true"
+            android:textSize="19dp"
+            android:textColor="@color/white"
+            />
+
+
+
+    </RelativeLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

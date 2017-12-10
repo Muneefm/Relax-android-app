@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "529642617411",
+    "firebase_url": "https://test-aaba7.firebaseio.com",
+    "project_id": "test-aaba7",
+    "storage_bucket": "test-aaba7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529642617411:android:5f35ec25de966172",
+        "android_client_info": {
+          "package_name": "com.mnf.relax"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529642617411-507io2p2a02coo7vh7js7s8b8cr9q0eu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS_sBKNrmZt2em7-ENMDdhflvW62ce-HE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
