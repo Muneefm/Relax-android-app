@@ -11,20 +11,30 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.mnf.relax.MainActivity"
     tools:showIn="@layout/activity_main">
+    <TextView
+        android:id="@+id/tv_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="40dp"
+        android:text="The earth has music for those who listen."
+        android:layout_centerHorizontal="true"
+        android:textSize="19dp"
+        android:textColor="@color/white"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:paddingTop="40dp"
-
+        android:layout_below="@+id/tv_bottom"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="0dp"
             android:layout_centerHorizontal="true"
             android:columnWidth="150dp"
-            android:paddingTop="70dp"
+            android:paddingTop="80dp"
             android:paddingBottom="30dp"
             android:clipToPadding="false"
             android:scrollbars="vertical" />
@@ -37,6 +47,6 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        ads:adUnitId="@string/home_banner_id">
     </com.google.android.gms.ads.AdView>
 </RelativeLayout>

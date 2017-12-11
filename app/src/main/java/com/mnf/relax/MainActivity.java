@@ -3,6 +3,7 @@ package com.mnf.relax;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -20,9 +21,13 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.mnf.relax.Adapters.GridAdapter;
 import com.mnf.relax.Misc.Config;
 import com.mnf.relax.Misc.GridSpacingItemDecoration;
@@ -39,18 +44,23 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     GridAdapter adapter;
     RecyclerView.OnItemTouchListener listener;
-    Context c;
     List<Item> itemsList;
     MediaPlayer player;
     MediaPlayer mediaPlayerBeach,mediaPlayerBirds,mediaPlayerBrown;
     MediaPlayer[] mediaPlayers;
     PreferensHandler pref;
 
+    private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
+    Context c;
+    TextView tvTop;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         pref = new PreferensHandler(getApplicationContext());
+        c= getApplicationContext();
 
         if(Config.isFirstTimeUser()){
             pref.setisFirstTimeUser(false);
@@ -60,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        tvTop = findViewById(R.id.tv_top);
+        Typeface fontPaci =Typeface.createFromAsset(getAssets(), "fonts/Pacifico-Regular.ttf");
+        tvTop.setTypeface(fontPaci);
 
         mediaPlayers = new  MediaPlayer[9];
         c = getApplicationContext();
@@ -68,15 +81,85 @@ public class MainActivity extends AppCompatActivity {
 
          if(!Config.isUserPaid()) {
              Log.e("TAG","user is not paid ads showing");
-             AdView adView = new AdView(this);
-             adView.setAdSize(AdSize.BANNER);
-             adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+             mAdView = findViewById(R.id.adView);
+             AdRequest adRequest = new AdRequest.Builder().build();
+             mAdView.loadAd(adRequest);
+             mAdView.setAdListener(new AdListener() {
+                 @Override
+                 public void onAdLoaded() {
+                     // Code to be executed when an ad finishes loading.
+                 }
+
+                 @Override
+                 public void onAdFailedToLoad(int errorCode) {
+                     // Code to be executed when an ad request fails.
+                 }
+
+                 @Override
+                 public void onAdOpened() {
+                     // Code to be executed when an ad opens an overlay that
+                     // covers the screen.
+                 }
+
+                 @Override
+                 public void onAdLeftApplication() {
+                     // Code to be executed when the user has left the app.
+                 }
+
+                 @Override
+                 public void onAdClosed() {
+                     // Code to be executed when when the user is about to return
+                     // to the app after tapping on an ad.
+                 }
+             });
+                 mInterstitialAd = new InterstitialAd(c);
+                 mInterstitialAd.setAdUnitId("ca-app-pub-7269223551241818/1581642854");
+                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
+             mInterstitialAd.setAdListener(new AdListener() {
+                 @Override
+                 public void onAdLoaded() {
+                     // Code to be executed when an ad finishes loading.
+                 }
+
+                 @Override
+                 public void onAdFailedToLoad(int errorCode) {
+                     // Code to be executed when an ad request fails.
+                 }
+
+                 @Override
+                 public void onAdOpened() {
+                     // Code to be executed when the ad is displayed.
+                 }
+
+                 @Override
+                 public void onAdLeftApplication() {
+                     // Code to be executed when the user has left the app.
+                 }
+
+                 @Override
+                 public void onAdClosed() {
+                     // Code to be executed when when the interstitial ad is closed.
+                 }
+             });
+
+
          }else{
              Log.e("TAG","user is  paid ads skiping");
 
          }
 
-         itemsList = new ArrayList<>();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_main);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, CreditScreen.class);
+                startActivity(i);
+            }
+        });
+
+
+
+        itemsList = new ArrayList<>();
          itemsList.add(new Item(0,R.raw.beach,R.drawable.beach));
         itemsList.add(new Item(1,R.raw.birds,R.drawable.bird));
         itemsList.add(new Item(2,R.raw.brownnoise,R.drawable.brownnoise));
@@ -118,14 +201,18 @@ public class MainActivity extends AppCompatActivity {
         listener = new RecyclerTouchListener(c, recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position)  {
-                /*Log.e("TAG","on item click pos = "+position);
-                try {
-                    startPLay(position);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e("TAG","player error = "+e.getMessage());
+               Config.inCreaseUserClicks();
+                Log.e("TAG","on addRecycleTouchListener  ");
+                if(!Config.isUserPaid()&&Config.isClicksLimitExhausted()){
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
+                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-                }*/
+                }
+
             }
 
             @Override

@@ -23,9 +23,11 @@
         <activity
             android:name=".LaunchActivity"
             android:label="@string/title_activity_launch"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".CreditScreen"
+            android:label="@string/title_activity_credit_screen"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
