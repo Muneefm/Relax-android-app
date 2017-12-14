@@ -1,7 +1,9 @@
 package com.mnf.relax.Misc;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 
@@ -50,5 +52,15 @@ public class Config {
         }
         Log.e("TAG","click limit not exhausted current clicks - "+getCurrentClicks());
         return false;
+    }
+
+    public static int getScreenDimensions(String dimen, Activity act){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        act.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        if(dimen.equals("height"))
+        return displayMetrics.heightPixels;
+        else
+       return displayMetrics.widthPixels;
+
     }
 }

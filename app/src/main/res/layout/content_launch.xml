@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome User"
+            android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:textSize="45dp"
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_subtitle"
             android:layout_marginTop="20dp"
-
+            android:gravity="center"
             android:text="The earth has music for those who listen."
             android:layout_centerHorizontal="true"
             android:textSize="19dp"

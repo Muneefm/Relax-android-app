@@ -33,7 +33,7 @@ public class LaunchActivity extends AppCompatActivity {
         tvWelcome = findViewById(R.id.tv_welcome);
         subTitle = findViewById(R.id.tv_subtitle);
         secondSubTitle = findViewById(R.id.tv_sub_subtitle);
-        Typeface font =Typeface.createFromAsset(getAssets(), "fonts/BerkshireSwash-Regular.ttf");
+        Typeface font =Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         Typeface fontLob =Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         tvWelcome.setTypeface(font);
         subTitle.setTypeface(fontLob);
@@ -45,6 +45,7 @@ public class LaunchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(LaunchActivity.this, MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -92,7 +93,6 @@ public class LaunchActivity extends AppCompatActivity {
                 // Start your app main activity
                 Intent i = new Intent(LaunchActivity.this, MainActivity.class);
                 startActivity(i);
-
                 // close this activity
                 finish();
             }

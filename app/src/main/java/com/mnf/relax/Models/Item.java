@@ -1,16 +1,18 @@
 package com.mnf.relax.Models;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by muneef on 22/11/17.
  */
 
 public class Item {
     int play;
-    int image;
+    Bitmap image;
     int id;
 
 
-    public Item(int id, int play,int image){
+    public Item(int id, int play,Bitmap image){
         this.image = image;
         this.id = id;
         this.play = play;
@@ -24,11 +26,11 @@ public class Item {
         return id;
     }
 
-    public void setImage(int image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 
-    public int getImage() {
+    public Bitmap getImage() {
         return image;
     }
 

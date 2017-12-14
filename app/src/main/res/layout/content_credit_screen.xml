@@ -50,12 +50,55 @@
         android:textSize="15dp"
         android:textColor="@color/white"
         />
+
+    <TextView
+        android:id="@+id/tv_ic_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="App Icon from"
+        android:layout_centerHorizontal="true"
+
+        android:layout_below="@+id/tv_three"
+        android:layout_marginTop="40dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        />
+    <TextView
+        android:id="@+id/tv_ic_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Freepik"
+        android:layout_below="@+id/tv_ic_one"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:id="@+id/tv_ic_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="https://www.flaticon.com/"
+        android:autoLink="web"
+        android:layout_below="@+id/tv_ic_two"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:textColor="@color/white"
+        />
 </RelativeLayout>
+
+
+
+
     <TextView
         android:id="@+id/tv_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:gravity="center"
+
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="40dp"
         android:text="The earth has music for those who listen."

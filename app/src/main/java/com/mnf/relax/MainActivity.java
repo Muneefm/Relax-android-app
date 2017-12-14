@@ -3,10 +3,13 @@ package com.mnf.relax;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +25,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     Context c;
     TextView tvTop;
+    boolean doubleBackToExitPressedOnce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             pref.setisFirstTimeUser(false);
             Intent i = new Intent(MainActivity.this, LaunchActivity.class);
             startActivity(i);
+            finish();
         }
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -160,20 +166,37 @@ public class MainActivity extends AppCompatActivity {
 
 
         itemsList = new ArrayList<>();
-         itemsList.add(new Item(0,R.raw.beach,R.drawable.beach));
+       /*  itemsList.add(new Item(0,R.raw.beach,R.drawable.beach));
         itemsList.add(new Item(1,R.raw.birds,R.drawable.bird));
-        itemsList.add(new Item(2,R.raw.brownnoise,R.drawable.brownnoise));
-        itemsList.add(new Item(3,R.raw.cat_purr,R.drawable.catpurr));
-        itemsList.add(new Item(4,R.raw.drops,R.drawable.drop));
-        itemsList.add(new Item(5,R.raw.fire,R.drawable.fire));
+        itemsList.add(new Item(2,R.raw.fire,R.drawable.fire));
+        itemsList.add(new Item(3,R.raw.sheep,R.drawable.sheep));
+        itemsList.add(new Item(4,R.raw.river,R.drawable.river));
+        itemsList.add(new Item(5,R.raw.drops,R.drawable.drop));
         itemsList.add(new Item(6,R.raw.forest,R.drawable.forest));
         itemsList.add(new Item(7,R.raw.leaves,R.drawable.leaves));
         itemsList.add(new Item(8,R.raw.pinknoise,R.drawable.pinknoise));
-        itemsList.add(new Item(9,R.raw.rain,R.drawable.rain));
-        itemsList.add(new Item(10,R.raw.river,R.drawable.river));
-        itemsList.add(new Item(11,R.raw.sheep,R.drawable.sheep));
-        itemsList.add(new Item(12,R.raw.thunder,R.drawable.thunder));
-        itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes));
+        itemsList.add(new Item(9,R.raw.brownnoise,R.drawable.brownnoise));
+        itemsList.add(new Item(10,R.raw.rain,R.drawable.rain));
+
+        itemsList.add(new Item(11,R.raw.thunder,R.drawable.thunder));
+        itemsList.add(new Item(12,R.raw.cat_purr,R.drawable.catpurr));
+        itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes));*/ //Bitmap icon = BitmapFactory.decodeResource(c.getResources(),);
+
+        itemsList.add(new Item(0,R.raw.beach,BitmapFactory.decodeResource(c.getResources(),R.drawable.beach)));
+        itemsList.add(new Item(1,R.raw.birds,BitmapFactory.decodeResource(c.getResources(),R.drawable.bird)));
+        itemsList.add(new Item(2,R.raw.fire,BitmapFactory.decodeResource(c.getResources(),R.drawable.fire)));
+        itemsList.add(new Item(3,R.raw.sheep,BitmapFactory.decodeResource(c.getResources(),R.drawable.sheep)));
+        itemsList.add(new Item(4,R.raw.river,BitmapFactory.decodeResource(c.getResources(),R.drawable.river)));
+        itemsList.add(new Item(5,R.raw.drops,BitmapFactory.decodeResource(c.getResources(),R.drawable.drop)));
+        itemsList.add(new Item(6,R.raw.forest,BitmapFactory.decodeResource(c.getResources(),R.drawable.forest)));
+        itemsList.add(new Item(7,R.raw.leaves,BitmapFactory.decodeResource(c.getResources(),R.drawable.leaves)));
+        itemsList.add(new Item(8,R.raw.pinknoise,BitmapFactory.decodeResource(c.getResources(),R.drawable.pinknoise)));
+        itemsList.add(new Item(9,R.raw.brownnoise,BitmapFactory.decodeResource(c.getResources(),R.drawable.brownnoise)));
+        itemsList.add(new Item(10,R.raw.rain,BitmapFactory.decodeResource(c.getResources(),R.drawable.rain)));
+
+        itemsList.add(new Item(11,R.raw.thunder,BitmapFactory.decodeResource(c.getResources(),R.drawable.thunder)));
+        itemsList.add(new Item(12,R.raw.cat_purr,BitmapFactory.decodeResource(c.getResources(),R.drawable.catpurr)));
+        itemsList.add(new Item(13,R.raw.windchimes,BitmapFactory.decodeResource(c.getResources(),R.drawable.windchimes)));
 
 
         AnimationDrawable animationDrawable = (AnimationDrawable) rlLayout.getBackground();
@@ -189,7 +212,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(1, Config.dpToPx(1,getApplicationContext()), true));
         //recyclerView.addItemDecoration(new MarginDecoration(this));
         recyclerView.setHasFixedSize(true);
-        adapter = new GridAdapter(getApplicationContext(),itemsList);
+        adapter = new GridAdapter(this,itemsList);
+
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recyclerView.setAdapter(adapter);
         addRecycleTouchListener(itemsList,recyclerView);
 
@@ -282,5 +309,26 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }*/
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+
+
+        if (doubleBackToExitPressedOnce) {
+            System.exit(0);
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }
