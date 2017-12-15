@@ -40,14 +40,7 @@ public class LaunchActivity extends AppCompatActivity {
         secondSubTitle.setTypeface(fontLob);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(LaunchActivity.this, MainActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+
 
 
 
@@ -80,7 +73,9 @@ public class LaunchActivity extends AppCompatActivity {
         fadeOut.setStartOffset(4200+fadeIn.getStartOffset());
 */
 
-        new Handler().postDelayed(new Runnable() {
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
 
             /*
              * Showing splash screen with a timer. This will be useful when you
@@ -103,6 +98,15 @@ public class LaunchActivity extends AppCompatActivity {
         tvWelcome.startAnimation(a);
 */
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handler.removeCallbacksAndMessages(null);
+                Intent i = new Intent(LaunchActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
 }

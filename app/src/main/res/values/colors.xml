@@ -92,6 +92,7 @@
     <color name="pink400">#EC407A</color>
     <color name="pink300">#F06292</color>
     <color name="pink100">#F8BBD0</color>
+    <color name="pink500">#E91E63</color>
 
 
 
@@ -177,7 +178,6 @@
     <color name="rectcolor">#42000000</color>
     <color name="salecolor">#006eb3</color>
     <color name="saleTextcolor">#FFFFFF</color>
-    <color name="pink500">#E91E63</color>
     <color name="BaseColor">#a46497</color>
     <color name="ActionBarColor">#374246</color>
     <color name="BackgroundColor">#eeeeee</color>

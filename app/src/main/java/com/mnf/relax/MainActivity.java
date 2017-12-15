@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -27,11 +29,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mnf.relax.Adapters.GridAdapter;
 import com.mnf.relax.Misc.Config;
 import com.mnf.relax.Misc.GridSpacingItemDecoration;
@@ -41,9 +46,14 @@ import com.mnf.relax.Models.Item;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import angtrim.com.fivestarslibrary.FiveStarsDialog;
+import angtrim.com.fivestarslibrary.NegativeReviewListener;
+import angtrim.com.fivestarslibrary.ReviewListener;
+
+public class MainActivity extends AppCompatActivity   {
     RelativeLayout rlLayout;
     RecyclerView recyclerView;
     GridAdapter adapter;
@@ -53,20 +63,20 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer mediaPlayerBeach,mediaPlayerBirds,mediaPlayerBrown;
     MediaPlayer[] mediaPlayers;
     PreferensHandler pref;
-
+    String manufacturer;
     private AdView mAdView;
     private InterstitialAd mInterstitialAd;
     Context c;
     TextView tvTop;
     boolean doubleBackToExitPressedOnce;
-
+    String model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         pref = new PreferensHandler(getApplicationContext());
         c= getApplicationContext();
-
+        showDialog();
         if(Config.isFirstTimeUser()){
             pref.setisFirstTimeUser(false);
             Intent i = new Intent(MainActivity.this, LaunchActivity.class);
@@ -331,4 +341,97 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2000);
     }
+    private void showDialog() {
+          manufacturer = Build.MANUFACTURER;
+         model = Build.MODEL;
+
+        final RatingDialog ratingDialog = new RatingDialog.Builder(this)
+                .session(3)
+                .threshold(4)
+                .ratingBarColor(R.color.pink500)
+                .positiveButtonTextColor(R.color.teal800)
+                .playstoreUrl("https://play.google.com/store/apps/details?id=com.mnf.relax")
+                .onRatingBarFormSumbit(new RatingDialog.Builder.RatingDialogFormListener() {
+                    @Override
+                    public void onFormSubmitted(String feedback) {
+                        Log.e("rating","Feedback:" + feedback);
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        if(manufacturer==null){
+                            manufacturer = "unknown device";
+                        }
+                        if(model==null){
+                            model = "unknown model";
+                        }
+                        DatabaseReference myRef = database.getReference("RatingFeedbacks").child(""+manufacturer+" - "+model);
+
+                        myRef.setValue("Feedback = "+feedback);
+                    }
+                })
+                .build();
+
+
+        ratingDialog.show();
+       /* final RatingDialog ratingDialog = new RatingDialog.Builder(this)
+                .icon(getResources().getDrawable(R.mipmap.ic_launcher))
+                .session(2)
+                .threshold(3)
+                .title("How was your experience with us?")
+                .titleTextColor(R.color.black)
+                .positiveButtonText("Not Now")
+                .negativeButtonText("Never")
+                .positiveButtonTextColor(R.color.teal800)
+                .negativeButtonTextColor(R.color.grey_500)
+                .formTitle("Submit Feedback")
+                .formHint("Tell us where we can improve")
+                .formSubmitText("Submit")
+                .formCancelText("Cancel")
+
+                .ratingBarColor(R.color.yellow)
+                .playstoreUrl("https://play.google.com/store/apps/details?id=com.mnf.relax")
+                .onThresholdCleared(new RatingDialog.Builder.RatingThresholdClearedListener() {
+                    @Override
+                    public void onThresholdCleared(RatingDialog ratingDialog, float rating, boolean thresholdCleared) {
+                        //do something
+                        //ratingDialog.dismiss();
+                        Log.e("Rating","onThresholdCleared float rating  = "+rating);
+
+                    }
+                })
+                .onThresholdFailed(new RatingDialog.Builder.RatingThresholdFailedListener() {
+                    @Override
+                    public void onThresholdFailed(RatingDialog ratingDialog, float rating, boolean thresholdCleared) {
+                        //do something
+                        //ratingDialog.dismiss();
+                        Log.e("Rating","onThresholdFailed float rating  = "+rating);
+
+                    }
+                })
+                .onRatingChanged(new RatingDialog.Builder.RatingDialogListener() {
+                    @Override
+                    public void onRatingSelected(float rating, boolean thresholdCleared) {
+                        Log.e("Rating","onRatingChanged float rating  = "+rating);
+
+                    }
+                })
+                .onRatingBarFormSumbit(new RatingDialog.Builder.RatingDialogFormListener() {
+                    @Override
+                    public void onFormSubmitted(String feedback) {
+                    Log.e("Rating","onRatingBarFormSumbit string = "+feedback);
+                    }
+                }).build();
+
+        ratingDialog.show();
+*/
+       /* FiveStarsDialog fiveStarsDialog = new FiveStarsDialog(this,"angelo.gallarello@gmail.com");
+        fiveStarsDialog.setRateText("Your custom text")
+                .setTitle("Your custom title")
+                .setForceMode(true)
+                .setUpperBound(2) // Market opened if a rating >= 2 is selected
+                .setNegativeReviewListener(this) // OVERRIDE mail intent for negative review
+                .setReviewListener(this) // Used to listen for reviews (if you want to track them )
+                .showAfter(1);*/
+    }
+
+
+
 }
