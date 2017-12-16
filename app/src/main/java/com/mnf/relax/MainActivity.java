@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity   {
 
 
         itemsList = new ArrayList<>();
-       /*  itemsList.add(new Item(0,R.raw.beach,R.drawable.beach));
+         itemsList.add(new Item(0,R.raw.beach,R.drawable.beach));
         itemsList.add(new Item(1,R.raw.birds,R.drawable.bird));
         itemsList.add(new Item(2,R.raw.fire,R.drawable.fire));
         itemsList.add(new Item(3,R.raw.sheep,R.drawable.sheep));
@@ -190,9 +190,9 @@ public class MainActivity extends AppCompatActivity   {
 
         itemsList.add(new Item(11,R.raw.thunder,R.drawable.thunder));
         itemsList.add(new Item(12,R.raw.cat_purr,R.drawable.catpurr));
-        itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes));*/ //Bitmap icon = BitmapFactory.decodeResource(c.getResources(),);
+        itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes)); //Bitmap icon = BitmapFactory.decodeResource(c.getResources(),);
 
-        itemsList.add(new Item(0,R.raw.beach,BitmapFactory.decodeResource(c.getResources(),R.drawable.beach)));
+      /*  itemsList.add(new Item(0,R.raw.beach,BitmapFactory.decodeResource(c.getResources(),R.drawable.beach)));
         itemsList.add(new Item(1,R.raw.birds,BitmapFactory.decodeResource(c.getResources(),R.drawable.bird)));
         itemsList.add(new Item(2,R.raw.fire,BitmapFactory.decodeResource(c.getResources(),R.drawable.fire)));
         itemsList.add(new Item(3,R.raw.sheep,BitmapFactory.decodeResource(c.getResources(),R.drawable.sheep)));
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity   {
         itemsList.add(new Item(11,R.raw.thunder,BitmapFactory.decodeResource(c.getResources(),R.drawable.thunder)));
         itemsList.add(new Item(12,R.raw.cat_purr,BitmapFactory.decodeResource(c.getResources(),R.drawable.catpurr)));
         itemsList.add(new Item(13,R.raw.windchimes,BitmapFactory.decodeResource(c.getResources(),R.drawable.windchimes)));
-
+*/
 
         AnimationDrawable animationDrawable = (AnimationDrawable) rlLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
@@ -372,7 +372,7 @@ public class MainActivity extends AppCompatActivity   {
 
         ratingDialog.show();
        /* final RatingDialog ratingDialog = new RatingDialog.Builder(this)
-                .icon(getResources().getDrawable(R.mipmap.ic_launcher))
+                .icon(getResources().getDrawable(R.mipmap.ic_launcher_new))
                 .session(2)
                 .threshold(3)
                 .title("How was your experience with us?")

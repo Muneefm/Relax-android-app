@@ -25,6 +25,7 @@ import com.mnf.relax.MainActivity;
 import com.mnf.relax.Misc.Config;
 import com.mnf.relax.Models.Item;
 import com.mnf.relax.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
@@ -120,8 +121,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
     public void onBindViewHolder( ViewHolder holder,  int position) {
 
          Item item = mDataset.get(position);
+        Picasso.with(c).load(item.getImage()).into(holder.imIcon);
 
-        holder.imIcon.setImageBitmap(item.getImage());
+       // holder.imIcon.setImageBitmap(item.getImage());
         //holder.imIcon.setImageDrawable(c.getResources().getDrawable(item.getImage()));
            // holder.imIcon.setImageResource(item.getImage());
         //holder.imIcon.setIMa

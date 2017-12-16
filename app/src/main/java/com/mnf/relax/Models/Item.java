@@ -8,11 +8,11 @@ import android.graphics.Bitmap;
 
 public class Item {
     int play;
-    Bitmap image;
+    int image;
     int id;
 
 
-    public Item(int id, int play,Bitmap image){
+    public Item(int id, int play,int image){
         this.image = image;
         this.id = id;
         this.play = play;
@@ -26,11 +26,11 @@ public class Item {
         return id;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
-    public Bitmap getImage() {
+    public int getImage() {
         return image;
     }
 
