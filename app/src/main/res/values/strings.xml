@@ -5,4 +5,8 @@
     <string name="home_inter">ca-app-pub-7269223551241818/1581642854</string>
     <string name="title_activity_launch">LaunchActivity</string>
     <string name="title_activity_credit_screen">CreditScreen</string>
+    <string name="title_activity_bottom">BottomActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

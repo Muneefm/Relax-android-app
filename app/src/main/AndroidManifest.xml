@@ -23,16 +23,17 @@
         </activity>
         <activity
             android:name=".LaunchActivity"
-            android:screenOrientation="portrait"
-
             android:label="@string/title_activity_launch"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreditScreen"
-            android:screenOrientation="portrait"
-
             android:label="@string/title_activity_credit_screen"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.BottomActivity"
+            android:label="@string/title_activity_bottom"></activity>
     </application>
 
 </manifest>
