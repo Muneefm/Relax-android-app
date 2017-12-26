@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -53,7 +54,7 @@ import angtrim.com.fivestarslibrary.FiveStarsDialog;
 import angtrim.com.fivestarslibrary.NegativeReviewListener;
 import angtrim.com.fivestarslibrary.ReviewListener;
 
-public class MainActivity extends AppCompatActivity   {
+public class MainActivity extends AppCompatActivity  implements View.OnClickListener  {
     RelativeLayout rlLayout;
     RecyclerView recyclerView;
     GridAdapter adapter;
@@ -70,6 +71,9 @@ public class MainActivity extends AppCompatActivity   {
     TextView tvTop;
     boolean doubleBackToExitPressedOnce;
     String model;
+    TextView tvRelax,tvProd,tvRandom;
+    CardView cvRelax,cvProd,cvRandom;
+    boolean onRelax = false,onProd = false,onRand = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,8 +91,17 @@ public class MainActivity extends AppCompatActivity   {
         //setSupportActionBar(toolbar);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         tvTop = findViewById(R.id.tv_top);
+        tvRelax = findViewById(R.id.relax_tv);
+        tvProd = findViewById(R.id.productivity_tv);
+        tvRandom = findViewById(R.id.rando_tv);
+
         Typeface fontPaci =Typeface.createFromAsset(getAssets(), "fonts/Pacifico-Regular.ttf");
         tvTop.setTypeface(fontPaci);
+        tvRelax.setTypeface(fontPaci);
+        tvProd.setTypeface(fontPaci);
+        tvRandom.setTypeface(fontPaci);
+
+
 
         mediaPlayers = new  MediaPlayer[9];
         c = getApplicationContext();
@@ -164,6 +177,15 @@ public class MainActivity extends AppCompatActivity   {
 
          }
 
+
+         cvProd = findViewById(R.id.preset_two);
+        cvRandom = findViewById(R.id.preset_three);
+        cvRelax = findViewById(R.id.preset_one);
+
+        cvProd.setOnClickListener(this);
+        cvRandom.setOnClickListener(this);
+        cvRelax.setOnClickListener(this);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_main);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,24 +197,28 @@ public class MainActivity extends AppCompatActivity   {
 
 
 
-        itemsList = new ArrayList<>();
-         itemsList.add(new Item(0,R.raw.beach,R.drawable.beach));
-        itemsList.add(new Item(1,R.raw.birds,R.drawable.bird));
-        itemsList.add(new Item(2,R.raw.fire,R.drawable.fire));
-        itemsList.add(new Item(3,R.raw.sheep,R.drawable.sheep));
-        itemsList.add(new Item(4,R.raw.river,R.drawable.river));
-        itemsList.add(new Item(5,R.raw.drops,R.drawable.drop));
-        itemsList.add(new Item(6,R.raw.forest,R.drawable.forest));
-        itemsList.add(new Item(7,R.raw.leaves,R.drawable.leaves));
-        itemsList.add(new Item(8,R.raw.pinknoise,R.drawable.pinknoise));
-        itemsList.add(new Item(9,R.raw.brownnoise,R.drawable.brownnoise));
-        itemsList.add(new Item(10,R.raw.rain,R.drawable.rain));
 
-        itemsList.add(new Item(11,R.raw.thunder,R.drawable.thunder));
-        itemsList.add(new Item(12,R.raw.cat_purr,R.drawable.catpurr));
-        itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes)); //Bitmap icon = BitmapFactory.decodeResource(c.getResources(),);
 
-      /*  itemsList.add(new Item(0,R.raw.beach,BitmapFactory.decodeResource(c.getResources(),R.drawable.beach)));
+
+
+               itemsList = new ArrayList<>();
+         itemsList.add(new Item(0,R.raw.beach,R.drawable.beach,false));
+        itemsList.add(new Item(1,R.raw.birds,R.drawable.bird,false));
+        itemsList.add(new Item(2,R.raw.fire,R.drawable.fire,false));
+        itemsList.add(new Item(3,R.raw.sheep,R.drawable.sheep,false));
+        itemsList.add(new Item(4,R.raw.river,R.drawable.river,false));
+        itemsList.add(new Item(5,R.raw.drops,R.drawable.drop,false));
+        itemsList.add(new Item(6,R.raw.forest,R.drawable.forest,false));
+        itemsList.add(new Item(7,R.raw.leaves,R.drawable.leaves,false));
+        itemsList.add(new Item(8,R.raw.pinknoise,R.drawable.pinknoise,false));
+        itemsList.add(new Item(9,R.raw.brownnoise,R.drawable.brownnoise,false));
+        itemsList.add(new Item(10,R.raw.rain,R.drawable.rain,false));
+
+        itemsList.add(new Item(11,R.raw.thunder,R.drawable.thunder,false));
+        itemsList.add(new Item(12,R.raw.cat_purr,R.drawable.catpurr,false));
+        itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes,false));//Bitmap icon = BitmapFactory.decodeResource(c.getResources(),);
+       /* itemsList = new ArrayList<>();
+       itemsList.add(new Item(0,R.raw.beach,BitmapFactory.decodeResource(c.getResources(),R.drawable.beach)));
         itemsList.add(new Item(1,R.raw.birds,BitmapFactory.decodeResource(c.getResources(),R.drawable.bird)));
         itemsList.add(new Item(2,R.raw.fire,BitmapFactory.decodeResource(c.getResources(),R.drawable.fire)));
         itemsList.add(new Item(3,R.raw.sheep,BitmapFactory.decodeResource(c.getResources(),R.drawable.sheep)));
@@ -203,7 +229,6 @@ public class MainActivity extends AppCompatActivity   {
         itemsList.add(new Item(8,R.raw.pinknoise,BitmapFactory.decodeResource(c.getResources(),R.drawable.pinknoise)));
         itemsList.add(new Item(9,R.raw.brownnoise,BitmapFactory.decodeResource(c.getResources(),R.drawable.brownnoise)));
         itemsList.add(new Item(10,R.raw.rain,BitmapFactory.decodeResource(c.getResources(),R.drawable.rain)));
-
         itemsList.add(new Item(11,R.raw.thunder,BitmapFactory.decodeResource(c.getResources(),R.drawable.thunder)));
         itemsList.add(new Item(12,R.raw.cat_purr,BitmapFactory.decodeResource(c.getResources(),R.drawable.catpurr)));
         itemsList.add(new Item(13,R.raw.windchimes,BitmapFactory.decodeResource(c.getResources(),R.drawable.windchimes)));
@@ -223,6 +248,7 @@ public class MainActivity extends AppCompatActivity   {
         //recyclerView.addItemDecoration(new MarginDecoration(this));
         recyclerView.setHasFixedSize(true);
         adapter = new GridAdapter(this,itemsList);
+        recyclerView.setNestedScrollingEnabled(false);
 
         recyclerView.setItemViewCacheSize(20);
         recyclerView.setDrawingCacheEnabled(true);
@@ -433,5 +459,66 @@ public class MainActivity extends AppCompatActivity   {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.preset_one:
+                clickRelax();
+                break;
+            case R.id.preset_two:
+                cvProd.setCardBackgroundColor(getResources().getColor(R.color.grey800));
+
+                break;
+            case R.id.preset_three:
+                cvRandom.setCardBackgroundColor(getResources().getColor(R.color.grey800));
+
+                break;
+            default:
+                break;
+
+        }
+    }
+    public void clearClicks(){
+        if(onRelax){
+            clickRelax();
+        }
+        if (onProd) {
+            clickProd();
+        }
+        if(onRand){
+            clickRandom();
+        }
+    }
+
+    public void clickRelax(){
+        clearClicks();
+        if(recyclerView!=null){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(!onRelax){
+                        cvRelax.setCardBackgroundColor(getResources().getColor(R.color.grey800));
+                        onRelax = true;
+                    }else{
+                        cvRelax.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
+                        onRelax = false;
+
+                    }
+                    recyclerView.findViewHolderForAdapterPosition(2).itemView.findViewById(R.id.icon_med).performClick();
+                    recyclerView.findViewHolderForAdapterPosition(5).itemView.findViewById(R.id.icon_med).performClick();
+
+                    Log.e("TAG","on handler perform click");
+                }
+            },1);
+        }
+
+    }
+
+    public void clickProd(){
+
+    }
+    public void clickRandom(){
+
+    }
 
 }

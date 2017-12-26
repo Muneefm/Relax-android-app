@@ -49,6 +49,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
 
     }
 
+    public void startPlayingPreset(){
+
+    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -121,9 +124,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
     public void onBindViewHolder( ViewHolder holder,  int position) {
 
          Item item = mDataset.get(position);
-        Picasso.with(c).load(item.getImage()).into(holder.imIcon);
+        //Picasso.with(c).load(item.getImage()).into(holder.imIcon);
 
-       // holder.imIcon.setImageBitmap(item.getImage());
+        holder.imIcon.setImageBitmap(BitmapFactory.decodeResource(c.getResources(),item.getImage()));
         //holder.imIcon.setImageDrawable(c.getResources().getDrawable(item.getImage()));
            // holder.imIcon.setImageResource(item.getImage());
         //holder.imIcon.setIMa

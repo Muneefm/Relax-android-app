@@ -35,25 +35,133 @@
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_below="@+id/tv_bottom"
+        android:id="@+id/preset_container"
+        android:layout_below="@id/tv_top"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/preset_one"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:shape="ring"
+
+        card_view:cardCornerRadius="30dp"
+        card_view:cardBackgroundColor="@android:color/transparent"
+
+        card_view:cardElevation="2dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/relax_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="   Relax   "
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/preset_two"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:shape="ring"
+
+                android:layout_marginBottom="20dp"
+
+                card_view:cardCornerRadius="30dp"
+                card_view:cardBackgroundColor="@android:color/transparent"
+                card_view:cardElevation="2dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/productivity_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Productivity"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/preset_three"
+                android:layout_marginBottom="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:shape="ring"
+                card_view:cardCornerRadius="30dp"
+                card_view:cardBackgroundColor="@android:color/transparent"
+                card_view:cardElevation="2dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/rando_tv"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Random"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/preset_container"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
+       <!-- <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_preset"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:paddingTop="80dp"
-
             android:paddingBottom="30dp"
             android:clipToPadding="false"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical" />-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:paddingTop="80dp"
-
+            android:paddingTop="50dp"
             android:paddingBottom="30dp"
             android:clipToPadding="false"
             android:scrollbars="vertical" />
@@ -69,15 +177,5 @@
         ads:adUnitId="@string/home_banner_id">
     </com.google.android.gms.ads.AdView>
 </RelativeLayout>
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="@color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
+
 </android.support.constraint.ConstraintLayout>

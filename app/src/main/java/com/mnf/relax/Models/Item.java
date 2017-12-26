@@ -10,12 +10,14 @@ public class Item {
     int play;
     int image;
     int id;
+    boolean isPlaying;
 
 
-    public Item(int id, int play,int image){
+    public Item(int id, int play,int image,boolean isPlaying){
         this.image = image;
         this.id = id;
         this.play = play;
+        this.isPlaying = isPlaying;
     }
 
     public void setId(int id) {
@@ -41,4 +43,18 @@ public class Item {
     public int getPlay() {
         return play;
     }
+
+
+    public void setisPlaying(boolean isplay) {
+        this.isPlaying = isplay;
+    }
+
+    public boolean getisPLaying() {
+        return isPlaying;
+    }
+
+
+
+
+
 }
