@@ -487,6 +487,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
       /*  Log.e("stop","stopAllFunction Call");
       adapter.stopAllMedia();
 
+
       adapter = new GridAdapter(acitivtyContext,itemsList);
       recyclerView.setAdapter(adapter);*/
 
