@@ -13,14 +13,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:shape="ring"
-
-
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_height="200dp"
         card_view:cardCornerRadius="100dp"
         card_view:cardBackgroundColor="@android:color/transparent"
-        card_view:cardElevation="2dp">
+        card_view:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"

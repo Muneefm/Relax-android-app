@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,12 +75,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     TextView tvRelax,tvProd,tvRandom;
     CardView cvRelax,cvProd,cvRandom;
     boolean onRelax = false,onProd = false,onRand = false;
+    Context acitivtyContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         pref = new PreferensHandler(getApplicationContext());
         c= getApplicationContext();
+        acitivtyContext = this;
         showDialog();
         if(Config.isFirstTimeUser()){
             pref.setisFirstTimeUser(false);
@@ -96,10 +99,12 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         tvRandom = findViewById(R.id.rando_tv);
 
         Typeface fontPaci =Typeface.createFromAsset(getAssets(), "fonts/Pacifico-Regular.ttf");
+        Typeface fontPlayball =Typeface.createFromAsset(getAssets(), "fonts/Playball-Regular.ttf");
+
         tvTop.setTypeface(fontPaci);
-        tvRelax.setTypeface(fontPaci);
-        tvProd.setTypeface(fontPaci);
-        tvRandom.setTypeface(fontPaci);
+        tvRelax.setTypeface(fontPlayball);
+        tvProd.setTypeface(fontPlayball);
+        tvRandom.setTypeface(fontPlayball);
 
 
 
@@ -190,8 +195,9 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, CreditScreen.class);
-                startActivity(i);
+            /*    Intent i = new Intent(MainActivity.this, CreditScreen.class);
+                startActivity(i);*/
+                stopAllMedia();
             }
         });
 
@@ -210,11 +216,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         itemsList.add(new Item(5,R.raw.drops,R.drawable.drop,false));
         itemsList.add(new Item(6,R.raw.forest,R.drawable.forest,false));
         itemsList.add(new Item(7,R.raw.leaves,R.drawable.leaves,false));
-        itemsList.add(new Item(8,R.raw.pinknoise,R.drawable.pinknoise,false));
+        itemsList.add(new Item(8,R.raw.pinknoise,R.drawable.pinknoise,true));
         itemsList.add(new Item(9,R.raw.brownnoise,R.drawable.brownnoise,false));
         itemsList.add(new Item(10,R.raw.rain,R.drawable.rain,false));
 
-        itemsList.add(new Item(11,R.raw.thunder,R.drawable.thunder,false));
+        itemsList.add(new Item(11,R.raw.thunder,R.drawable.thunder,true));
         itemsList.add(new Item(12,R.raw.cat_purr,R.drawable.catpurr,false));
         itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes,false));//Bitmap icon = BitmapFactory.decodeResource(c.getResources(),);
        /* itemsList = new ArrayList<>();
@@ -461,63 +467,107 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        //stopAllMedia();
         switch (view.getId()){
             case R.id.preset_one:
                 clickRelax();
                 break;
             case R.id.preset_two:
-                cvProd.setCardBackgroundColor(getResources().getColor(R.color.grey800));
-
+                clickProd();
                 break;
             case R.id.preset_three:
-                cvRandom.setCardBackgroundColor(getResources().getColor(R.color.grey800));
-
+                clickRandom();
                 break;
             default:
                 break;
 
         }
     }
-    public void clearClicks(){
-        if(onRelax){
-            clickRelax();
+    public void stopAllMedia(){
+      /*  Log.e("stop","stopAllFunction Call");
+      adapter.stopAllMedia();
+
+      adapter = new GridAdapter(acitivtyContext,itemsList);
+      recyclerView.setAdapter(adapter);*/
+
+      MediaPlayer[] players = adapter.getMediaPlayers();
+        for (int i=0;i<players.length;i++){
+            if (player != null) {
+                if (player.isPlaying()) {
+                    player.stop();
+                    player.release();
+                    Log.e("TAG", "stop ");
+                    recyclerView.findViewHolderForAdapterPosition(i).itemView.findViewById(R.id.icon_med).setAlpha(0.3f);
+                    SeekBar bar = (SeekBar) recyclerView.findViewHolderForAdapterPosition(i).itemView.findViewById(R.id.volume_seek);
+                    bar.setAlpha(0.3f);
+                    bar.setProgress(0);
+                }
+            }
+
+
         }
-        if (onProd) {
-            clickProd();
-        }
-        if(onRand){
-            clickRandom();
-        }
+
     }
 
     public void clickRelax(){
-        clearClicks();
         if(recyclerView!=null){
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+
                     if(!onRelax){
-                        cvRelax.setCardBackgroundColor(getResources().getColor(R.color.grey800));
+                        //cvRelax.setCardBackgroundColor(getResources().getColor(R.color.grey800));
                         onRelax = true;
                     }else{
-                        cvRelax.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
+                        //cvRelax.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
                         onRelax = false;
 
                     }
                     recyclerView.findViewHolderForAdapterPosition(2).itemView.findViewById(R.id.icon_med).performClick();
                     recyclerView.findViewHolderForAdapterPosition(5).itemView.findViewById(R.id.icon_med).performClick();
 
-                    Log.e("TAG","on handler perform click");
+                    Log.e("preset","on handler perform click relax");
                 }
-            },1);
-        }
+
 
     }
 
     public void clickProd(){
+        if(recyclerView!=null){
+
+                    if(!onProd){
+                       // cvProd.setCardBackgroundColor(getResources().getColor(R.color.grey800));
+                        onProd = true;
+                    }else{
+                       // cvProd.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
+                        onProd = false;
+
+                    }
+                    recyclerView.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.icon_med).performClick();
+                    recyclerView.findViewHolderForAdapterPosition(1).itemView.findViewById(R.id.icon_med).performClick();
+
+                    Log.e("preset","on handler perform Prod");
+
+        }
+
 
     }
     public void clickRandom(){
+
+        if(recyclerView!=null){
+
+                    if(!onRand){
+                       // cvRandom.setCardBackgroundColor(getResources().getColor(R.color.grey800));
+                        onRand = true;
+                    }else{
+                       // cvRandom.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
+                        onRand = false;
+
+                    }
+                    recyclerView.findViewHolderForAdapterPosition(8).itemView.findViewById(R.id.icon_med).performClick();
+                    recyclerView.findViewHolderForAdapterPosition(7).itemView.findViewById(R.id.icon_med).performClick();
+
+                    Log.e("preset","on handler perform Random");
+
+        }
+
 
     }
 

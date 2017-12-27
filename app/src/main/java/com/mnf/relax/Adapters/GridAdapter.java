@@ -49,9 +49,33 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
 
     }
 
-    public void startPlayingPreset(){
+    public boolean stopAllMedia(){
+        for (MediaPlayer player: mediaPlayers ) {
+            if (player != null) {
+                if (player.isPlaying()) {
+                    player.stop();
+                    player.release();
+                    Log.e("TAG", "stop ");
 
+                }
+            }
+
+
+        }
+
+
+
+
+        return true;
     }
+
+
+    public MediaPlayer[] getMediaPlayers(){
+        return this.mediaPlayers;
+    }
+
+
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -60,8 +84,14 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
         public ImageView imIcon;
         public SeekBar seekBar;
         // TagView tagGroup;
+
+
+
+
         public ViewHolder(View view) {
             super(view);
+            Log.e("ViewHolder","on gridadapter viewHolder "+getAdapterPosition());
+
             imIcon = view.findViewById(R.id.icon_med);
             seekBar = view.findViewById(R.id.volume_seek);
             cv = view.findViewById(R.id.myCardView);
@@ -89,6 +119,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
                     }
                 }
             });
+
+
+
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -127,6 +160,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
         //Picasso.with(c).load(item.getImage()).into(holder.imIcon);
 
         holder.imIcon.setImageBitmap(BitmapFactory.decodeResource(c.getResources(),item.getImage()));
+
+
         //holder.imIcon.setImageDrawable(c.getResources().getDrawable(item.getImage()));
            // holder.imIcon.setImageResource(item.getImage());
         //holder.imIcon.setIMa
@@ -189,9 +224,11 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
 
 
     public void startPLay(int item,SeekBar bar,ImageView imView) throws IOException {
-        //Log.e("TAG","start play");
+        Log.e("preset","start play item = "+item);
         if (mediaPlayers[item] != null) {
             if (mediaPlayers[item].isPlaying()) {
+                Log.e("preset","already playing stoping = "+item);
+
                 mediaPlayers[item].stop();
                 mediaPlayers[item].release();
                 mediaPlayers[item] = null;
