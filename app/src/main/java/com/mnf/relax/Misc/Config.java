@@ -9,11 +9,18 @@ import android.util.TypedValue;
 
 import com.mnf.relax.AppController;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 /**
  * Created by muneef on 17/11/17.
  */
 
 public class Config {
+    static int prevRandom=100;
+    static int prevRandomRelax = 100;
+    static int relaxI = 0;
     public static int dpToPx(int dp, Context c) {
 
         Resources r = c.getResources();
@@ -63,4 +70,63 @@ public class Config {
        return displayMetrics.widthPixels;
 
     }
+
+    public static int[] getRelaxIDs(){
+
+        int[] randomOne = {0,13},
+                randomTwo = {4,6},
+                randomThree={2,5,10,11};
+
+        List<int[]> relaxList = new ArrayList<>();
+        relaxList.add(randomOne);
+        relaxList.add(randomTwo);
+        relaxList.add(randomThree);
+       /* int ran = getRandomBetween(0,3);
+        if(prevRandomRelax != 100) {
+            while (ran == prevRandom) {
+                ran = getRandomBetween(0, 3);
+            }
+        }
+        prevRandom = ran;*/
+       if(relaxI >= relaxList.size()){
+           relaxI = 0;
+       }
+       Log.e("Config","getRelaxIDs  i = "+relaxI);
+        return  relaxList.get(relaxI++);
+
+    }
+
+    public static int[] getRandomIDs(){
+        int[] randomOne = {0,1,4},
+                randomTwo = {8,4,2,6},
+                randomThree={2,5,10,11},
+                randomFour = {8,4,2,6},
+                randomFive = {3,6,2,0,1};
+
+
+                List<int[]> relaxList = new ArrayList<>();
+        relaxList.add(randomOne);
+        relaxList.add(randomTwo);
+        relaxList.add(randomThree);
+        relaxList.add(randomFive);
+        relaxList.add(randomFour);
+        int ran = getRandomBetween(0,relaxList.size());
+        if(prevRandom != 100) {
+            while (ran == prevRandom) {
+                ran = getRandomBetween(0, relaxList.size());
+            }
+        }
+        prevRandom = ran;
+        return  relaxList.get(ran);
+
+    }
+
+    public static int getRandomBetween(int first, int last){
+        Random r = new Random();
+        return   r.nextInt(last - first) + first;
+
+    }
+
+
+
 }

@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     CardView cvRelax,cvProd,cvRandom;
     boolean onRelax = false,onProd = false,onRand = false;
     Context acitivtyContext;
+    int[] randomOne = {0,13},randomTwo = {4,6},randomThree={};
+    ArrayList list = new ArrayList();
+    int[] prev_selection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -223,7 +227,9 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         itemsList.add(new Item(11,R.raw.thunder,R.drawable.thunder,true));
         itemsList.add(new Item(12,R.raw.cat_purr,R.drawable.catpurr,false));
         itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes,false));//Bitmap icon = BitmapFactory.decodeResource(c.getResources(),);
-       /* itemsList = new ArrayList<>();
+       list.add(randomOne);
+
+        /* itemsList = new ArrayList<>();
        itemsList.add(new Item(0,R.raw.beach,BitmapFactory.decodeResource(c.getResources(),R.drawable.beach)));
         itemsList.add(new Item(1,R.raw.birds,BitmapFactory.decodeResource(c.getResources(),R.drawable.bird)));
         itemsList.add(new Item(2,R.raw.fire,BitmapFactory.decodeResource(c.getResources(),R.drawable.fire)));
@@ -403,71 +409,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
 
         ratingDialog.show();
-       /* final RatingDialog ratingDialog = new RatingDialog.Builder(this)
-                .icon(getResources().getDrawable(R.mipmap.ic_launcher_new))
-                .session(2)
-                .threshold(3)
-                .title("How was your experience with us?")
-                .titleTextColor(R.color.black)
-                .positiveButtonText("Not Now")
-                .negativeButtonText("Never")
-                .positiveButtonTextColor(R.color.teal800)
-                .negativeButtonTextColor(R.color.grey_500)
-                .formTitle("Submit Feedback")
-                .formHint("Tell us where we can improve")
-                .formSubmitText("Submit")
-                .formCancelText("Cancel")
 
-                .ratingBarColor(R.color.yellow)
-                .playstoreUrl("https://play.google.com/store/apps/details?id=com.mnf.relax")
-                .onThresholdCleared(new RatingDialog.Builder.RatingThresholdClearedListener() {
-                    @Override
-                    public void onThresholdCleared(RatingDialog ratingDialog, float rating, boolean thresholdCleared) {
-                        //do something
-                        //ratingDialog.dismiss();
-                        Log.e("Rating","onThresholdCleared float rating  = "+rating);
-
-                    }
-                })
-                .onThresholdFailed(new RatingDialog.Builder.RatingThresholdFailedListener() {
-                    @Override
-                    public void onThresholdFailed(RatingDialog ratingDialog, float rating, boolean thresholdCleared) {
-                        //do something
-                        //ratingDialog.dismiss();
-                        Log.e("Rating","onThresholdFailed float rating  = "+rating);
-
-                    }
-                })
-                .onRatingChanged(new RatingDialog.Builder.RatingDialogListener() {
-                    @Override
-                    public void onRatingSelected(float rating, boolean thresholdCleared) {
-                        Log.e("Rating","onRatingChanged float rating  = "+rating);
-
-                    }
-                })
-                .onRatingBarFormSumbit(new RatingDialog.Builder.RatingDialogFormListener() {
-                    @Override
-                    public void onFormSubmitted(String feedback) {
-                    Log.e("Rating","onRatingBarFormSumbit string = "+feedback);
-                    }
-                }).build();
-
-        ratingDialog.show();
-*/
-       /* FiveStarsDialog fiveStarsDialog = new FiveStarsDialog(this,"angelo.gallarello@gmail.com");
-        fiveStarsDialog.setRateText("Your custom text")
-                .setTitle("Your custom title")
-                .setForceMode(true)
-                .setUpperBound(2) // Market opened if a rating >= 2 is selected
-                .setNegativeReviewListener(this) // OVERRIDE mail intent for negative review
-                .setReviewListener(this) // Used to listen for reviews (if you want to track them )
-                .showAfter(1);*/
     }
 
 
     @Override
     public void onClick(View view) {
-        //stopAllMedia();
+        stopAllMedia();
         switch (view.getId()){
             case R.id.preset_one:
                 clickRelax();
@@ -490,21 +438,25 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
       adapter = new GridAdapter(acitivtyContext,itemsList);
       recyclerView.setAdapter(adapter);*/
+        Log.e("MainActivity", "stopAllMedia ");
 
-      MediaPlayer[] players = adapter.getMediaPlayers();
-        for (int i=0;i<players.length;i++){
-            if (player != null) {
-                if (player.isPlaying()) {
-                    player.stop();
-                    player.release();
-                    Log.e("TAG", "stop ");
+      adapter.stopAllMedia();
+        for (int i=0;i<itemsList.size();i++){
+            Log.e("MainActivity", "inside loop i =  "+i);
+
+           /* if (player != null) {
+                if (player.isPlaying()) {*/
+                    Log.e("MainActivity", "is playing for i "+i);
+
+                    /*player.stop();
+                    player.release();*/
                     recyclerView.findViewHolderForAdapterPosition(i).itemView.findViewById(R.id.icon_med).setAlpha(0.3f);
                     SeekBar bar = (SeekBar) recyclerView.findViewHolderForAdapterPosition(i).itemView.findViewById(R.id.volume_seek);
                     bar.setAlpha(0.3f);
-                    bar.setProgress(0);
+         /*           bar.setProgress(0);
                 }
             }
-
+*/
 
         }
 
@@ -512,17 +464,20 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     public void clickRelax(){
         if(recyclerView!=null){
-
                     if(!onRelax){
-                        //cvRelax.setCardBackgroundColor(getResources().getColor(R.color.grey800));
                         onRelax = true;
                     }else{
-                        //cvRelax.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
                         onRelax = false;
-
                     }
-                    recyclerView.findViewHolderForAdapterPosition(2).itemView.findViewById(R.id.icon_med).performClick();
-                    recyclerView.findViewHolderForAdapterPosition(5).itemView.findViewById(R.id.icon_med).performClick();
+
+                    int[] relaxIds = Config.getRelaxIDs();
+
+                    for(int ids: relaxIds){
+                        Log.e("MainActivity","relax ids = "+ids);
+
+                        recyclerView.findViewHolderForAdapterPosition(ids).itemView.findViewById(R.id.icon_med).performClick();
+                    }
+
 
                     Log.e("preset","on handler perform click relax");
                 }
@@ -541,11 +496,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                         onProd = false;
 
                     }
-                    recyclerView.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.icon_med).performClick();
-                    recyclerView.findViewHolderForAdapterPosition(1).itemView.findViewById(R.id.icon_med).performClick();
+                    recyclerView.findViewHolderForAdapterPosition(2).itemView.findViewById(R.id.icon_med).performClick();
+                    recyclerView.findViewHolderForAdapterPosition(5).itemView.findViewById(R.id.icon_med).performClick();
+                    recyclerView.findViewHolderForAdapterPosition(13).itemView.findViewById(R.id.icon_med).performClick();
 
                     Log.e("preset","on handler perform Prod");
-
         }
 
 
@@ -562,8 +517,18 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                         onRand = false;
 
                     }
-                    recyclerView.findViewHolderForAdapterPosition(8).itemView.findViewById(R.id.icon_med).performClick();
-                    recyclerView.findViewHolderForAdapterPosition(7).itemView.findViewById(R.id.icon_med).performClick();
+
+
+
+            int[] randomIDs  = Config.getRandomIDs();
+
+            for(int ids: randomIDs){
+                Log.e("MainActivity","relax ids = "+ids);
+
+                recyclerView.findViewHolderForAdapterPosition(ids).itemView.findViewById(R.id.icon_med).performClick();
+            }
+
+
 
                     Log.e("preset","on handler perform Random");
 

@@ -50,19 +50,36 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
     }
 
     public boolean stopAllMedia(){
-        for (MediaPlayer player: mediaPlayers ) {
+       /* for (MediaPlayer player: mediaPlayers ) {
             if (player != null) {
                 if (player.isPlaying()) {
                     player.stop();
                     player.release();
+                    player = null;
                     Log.e("TAG", "stop ");
 
                 }
             }
 
 
-        }
+        }*/
 
+        for(int i = 0;i < mediaPlayers.length; i++){
+            if (mediaPlayers[i] != null) {
+                if (mediaPlayers[i].isPlaying()) {
+                    Log.e("GridAdapter","stopAllMedia already playing stoping = "+i);
+
+                    mediaPlayers[i].stop();
+                    mediaPlayers[i].release();
+                    mediaPlayers[i] = null;
+                    Log.e("GridAdapter", "stopAllMedia stop ");
+                    /*bar.setAlpha(0.3f);
+                    imView.setAlpha(0.3f);
+                    bar.setProgress(0);*/
+
+                }
+            }
+        }
 
 
 
