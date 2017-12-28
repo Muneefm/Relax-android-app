@@ -124,7 +124,6 @@ public class Config {
     public static int getRandomBetween(int first, int last){
         Random r = new Random();
         return   r.nextInt(last - first) + first;
-
     }
 
 

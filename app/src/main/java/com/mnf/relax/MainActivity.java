@@ -103,9 +103,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         tvRandom = findViewById(R.id.rando_tv);
 
         Typeface fontPaci =Typeface.createFromAsset(getAssets(), "fonts/Pacifico-Regular.ttf");
-        Typeface fontPlayball =Typeface.createFromAsset(getAssets(), "fonts/Playball-Regular.ttf");
+        Typeface fontPlayball =Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 
         tvTop.setTypeface(fontPaci);
+
         tvRelax.setTypeface(fontPlayball);
         tvProd.setTypeface(fontPlayball);
         tvRandom.setTypeface(fontPlayball);

@@ -30,7 +30,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:backgroundTint="@android:color/transparent"
+        app:elevation="0dp"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/info" />
+        app:srcCompat="@mipmap/mute" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -31,6 +31,7 @@
                 android:id="@+id/icon_med"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+
                 android:layout_centerHorizontal="true"
                 android:layout_margin="20dp"
                 android:alpha="0.3"
@@ -43,6 +44,7 @@
                 android:id="@+id/volume_seek"
                 android:layout_width="150dp"
                 android:layout_height="30dp"
+
                 android:layout_below="@+id/icon_med"
                 android:layout_centerHorizontal="true"
                 android:alpha=".1"
