@@ -1,10 +1,13 @@
 package com.mnf.relax;
 
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -12,7 +15,8 @@ import android.widget.TextView;
 
 public class CreditScreen extends AppCompatActivity {
 
-    TextView tvOne,tvTwo,tvThree,tvBottom,url, tvICone,tvICtwo,tvICthree;
+    TextView tvOne,tvTwo,tvThree,tvBottom,url, tvICone,tvICtwo,tvICthree,rateHead;
+    CardView cvRate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +36,12 @@ public class CreditScreen extends AppCompatActivity {
         tvTwo = findViewById(R.id.tv_two);
         tvBottom = findViewById(R.id.tv_bottom);
         url = findViewById(R.id.tv_three);
+        rateHead = findViewById(R.id.tv_rate_head);
 
-        tvICone = findViewById(R.id.tv_ic_one);
+        //tvICone = findViewById(R.id.tv_ic_one);
         tvICtwo = findViewById(R.id.tv_ic_two);
         tvICthree = findViewById(R.id.tv_ic_three);
+        cvRate = findViewById(R.id.rate_card);
 
 
         Typeface font =Typeface.createFromAsset(getAssets(), "fonts/BerkshireSwash-Regular.ttf");
@@ -45,8 +51,9 @@ public class CreditScreen extends AppCompatActivity {
         tvOne.setTypeface(font);
         tvTwo.setTypeface(fontLob);
         tvBottom.setTypeface(fontPaci);
+        rateHead.setTypeface(font);
 
-        tvICone.setTypeface(font);
+        //tvICone.setTypeface(font);
         tvICtwo.setTypeface(fontLob);
 
 
@@ -69,11 +76,11 @@ public class CreditScreen extends AppCompatActivity {
         fadeInurl.setStartOffset(1000);
 
 
-        AlphaAnimation fadeInIc = new AlphaAnimation(0.0f , 1.0f ) ;
+     /*   AlphaAnimation fadeInIc = new AlphaAnimation(0.0f , 1.0f ) ;
         tvICone.startAnimation(fadeInIc);
         fadeInIc.setDuration(1000);
         fadeInIc.setFillAfter(true);
-
+*/
 
         AlphaAnimation fadeInIcTwo = new AlphaAnimation(0.0f , 1.0f ) ;
         tvICtwo.startAnimation(fadeInIcTwo);
@@ -88,7 +95,17 @@ public class CreditScreen extends AppCompatActivity {
         fadeInIcurl.setStartOffset(1000);
 
 
-
+        cvRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+            }
+        });
     }
 
 }

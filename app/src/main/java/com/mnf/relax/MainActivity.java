@@ -12,20 +12,24 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     int[] randomOne = {0,13},randomTwo = {4,6},randomThree={};
     ArrayList list = new ArrayList();
     int[] prev_selection;
+    LinearLayout aboutRl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +106,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         tvRelax = findViewById(R.id.relax_tv);
         tvProd = findViewById(R.id.productivity_tv);
         tvRandom = findViewById(R.id.rando_tv);
+        aboutRl = findViewById(R.id.about_container);
 
         Typeface fontPaci =Typeface.createFromAsset(getAssets(), "fonts/Pacifico-Regular.ttf");
-        Typeface fontPlayball =Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+        Typeface fontPlayball =Typeface.createFromAsset(getAssets(), "fonts/Amaranth-Regular.ttf");
 
         tvTop.setTypeface(fontPaci);
 
@@ -197,6 +203,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         cvRelax.setOnClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_main);
+        FloatingActionButton fabTwo = (FloatingActionButton) findViewById(R.id.fab_main_two);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,10 +213,41 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 stopAllMedia();
             }
         });
+        fabTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            /*    Intent i = new Intent(MainActivity.this, CreditScreen.class);
+                startActivity(i);*/
+                stopAllMedia();
+            }
+        });
 
+        aboutRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, CreditScreen.class);
+                startActivity(i);
+            }
+        });
 
+        if(new Config().hasNavBar(this.getWindowManager())){
+           // fab.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT));
+      /*     int margin =  Config.dpToPx(getResources().getDimensionPixelOffset(R.dimen.fab_margin),c);
+          CoordinatorLayout.LayoutParams params =  new CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.WRAP_CONTENT, CoordinatorLayout.LayoutParams.WRAP_CONTENT);
+                    params.setMargins(margin,margin,margin,margin);
+                    fab.setLayoutParams(params);*/
+                    fab.setVisibility(View.VISIBLE);
+                    fabTwo.setVisibility(View.GONE);
 
-
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0,0,0,100);
+            aboutRl.setLayoutParams(layoutParams);
+            Log.e("MainActivity","Device has navigation bar");
+        }else{
+            Log.e("MainActivity","device does not have navigation bar");
+            fab.setVisibility(View.GONE);
+            fabTwo.setVisibility(View.VISIBLE);
+        }
 
 
 

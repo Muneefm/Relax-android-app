@@ -6,19 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.mnf.relax.Activity.BottomActivity">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:diagonal="http://schemas.android.com/apk/res-auto"
-
+<RelativeLayout
     android:layout_width="match_parent"
     android:id="@+id/container"
     android:layout_height="match_parent"
     android:background="@drawable/trans"
-
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.mnf.relax.MainActivity"
-    tools:showIn="@layout/activity_main">
+    >
 
     <TextView
         android:id="@+id/tv_top"
@@ -86,6 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_weight="1"
+
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:layout_marginLeft="10dp"
@@ -125,7 +121,6 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:layout_marginBottom="20dp"
-
                 card_view:cardCornerRadius="30dp"
                 card_view:cardBackgroundColor="@android:color/transparent"
                 card_view:cardElevation="1dp">
@@ -137,6 +132,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" Productivity "
+                        android:textStyle="bold"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         android:textColor="@color/white"
@@ -179,8 +175,14 @@
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </RelativeLayout>
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/rec_container"
         android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:descendantFocusability="blocksDescendants"
+
         android:layout_below="@+id/preset_container"
         android:layout_height="match_parent">
        <!-- <android.support.v7.widget.RecyclerView
@@ -195,18 +197,54 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:paddingTop="30dp"
             android:paddingBottom="30dp"
+
             android:clipToPadding="false"
             android:scrollbars="vertical" />
-        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/recycler_view"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:id="@+id/about_container"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About  "
+
+                android:textSize="19dp"
+                android:textColor="@color/white"
+
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="20dp"
+                android:textStyle="bold"
+
+                android:textColor="@color/white"
+
+                android:layout_centerHorizontal="true"
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+
+
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"

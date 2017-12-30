@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+
     tools:context="com.mnf.relax.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -30,9 +31,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:backgroundTint="@android:color/transparent"
         app:elevation="0dp"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@mipmap/mute" />
+        android:visibility="gone"
+        app:backgroundTint="@android:color/transparent"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="@dimen/fab_margin"
+        app:srcCompat="@mipmap/mute"
+         />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_main_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:elevation="0dp"
+        app:backgroundTint="@android:color/transparent"
+        android:visibility="gone"
+       android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@mipmap/mute"
+         />
 
 </android.support.design.widget.CoordinatorLayout>
