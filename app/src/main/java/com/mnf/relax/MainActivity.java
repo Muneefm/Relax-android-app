@@ -12,6 +12,8 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -35,6 +37,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -59,7 +63,7 @@ import angtrim.com.fivestarslibrary.FiveStarsDialog;
 import angtrim.com.fivestarslibrary.NegativeReviewListener;
 import angtrim.com.fivestarslibrary.ReviewListener;
 
-public class MainActivity extends AppCompatActivity  implements View.OnClickListener  {
+public class MainActivity extends AppCompatActivity  implements View.OnClickListener, BillingProcessor.IBillingHandler  {
     RelativeLayout rlLayout;
     RecyclerView recyclerView;
     GridAdapter adapter;
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     ArrayList list = new ArrayList();
     int[] prev_selection;
     LinearLayout aboutRl;
+    BillingProcessor bp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +104,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             startActivity(i);
             finish();
         }
+        bp = new BillingProcessor(this, Config.RSA_PLAYSTORE, this);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -125,7 +131,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
          recyclerView = findViewById(R.id.recycler_view);
 
          if(!Config.isUserPaid()) {
-             Log.e("TAG","user is not paid ads showing");
+            /* Log.e("TAG","user is not paid ads showing");
              mAdView = findViewById(R.id.adView);
              AdRequest adRequest = new AdRequest.Builder().build();
              mAdView.loadAd(adRequest);
@@ -156,8 +162,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                      // Code to be executed when when the user is about to return
                      // to the app after tapping on an ad.
                  }
-             });
-                 mInterstitialAd = new InterstitialAd(c);
+             });*/
+          /*       mInterstitialAd = new InterstitialAd(c);
                  mInterstitialAd.setAdUnitId("ca-app-pub-7269223551241818/1581642854");
                  mInterstitialAd.loadAd(new AdRequest.Builder().build());
              mInterstitialAd.setAdListener(new AdListener() {
@@ -185,14 +191,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                  public void onAdClosed() {
                      // Code to be executed when when the interstitial ad is closed.
                  }
-             });
+             });*/
 
+             Log.e("TAG","user is  not paid");
 
          }else{
              Log.e("TAG","user is  paid ads skiping");
 
          }
-
 
          cvProd = findViewById(R.id.preset_two);
         cvRandom = findViewById(R.id.preset_three);
@@ -251,23 +257,22 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
 
 
-               itemsList = new ArrayList<>();
-         itemsList.add(new Item(0,R.raw.beach,R.drawable.beach,false));
-        itemsList.add(new Item(1,R.raw.birds,R.drawable.bird,false));
-        itemsList.add(new Item(2,R.raw.fire,R.drawable.fire,false));
-        itemsList.add(new Item(3,R.raw.sheep,R.drawable.sheep,false));
-        itemsList.add(new Item(4,R.raw.river,R.drawable.river,false));
-        itemsList.add(new Item(5,R.raw.drops,R.drawable.drop,false));
-        itemsList.add(new Item(6,R.raw.forest,R.drawable.forest,false));
-        itemsList.add(new Item(7,R.raw.leaves,R.drawable.leaves,false));
-        itemsList.add(new Item(8,R.raw.pinknoise,R.drawable.pinknoise,true));
-        itemsList.add(new Item(9,R.raw.brownnoise,R.drawable.brownnoise,false));
-        itemsList.add(new Item(10,R.raw.rain,R.drawable.rain,false));
-
-        itemsList.add(new Item(11,R.raw.thunder,R.drawable.thunder,true));
-        itemsList.add(new Item(12,R.raw.cat_purr,R.drawable.catpurr,false));
-        itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes,false));//Bitmap icon = BitmapFactory.decodeResource(c.getResources(),);
-       list.add(randomOne);
+        itemsList = new ArrayList<>();
+        itemsList.add(new Item(0,R.raw.beach,R.drawable.beach,false, false));
+        itemsList.add(new Item(1,R.raw.birds,R.drawable.bird,false, false));
+        itemsList.add(new Item(2,R.raw.fire,R.drawable.fire,false, false));
+        itemsList.add(new Item(3,R.raw.sheep,R.drawable.sheep,false, true));
+        itemsList.add(new Item(4,R.raw.river,R.drawable.river,false, false));
+        itemsList.add(new Item(5,R.raw.drops,R.drawable.drop,false, false));
+        itemsList.add(new Item(6,R.raw.forest,R.drawable.forest,false, false));
+        itemsList.add(new Item(7,R.raw.leaves,R.drawable.leaves,false, true));
+        itemsList.add(new Item(8,R.raw.pinknoise,R.drawable.pinknoise,true, true));
+        itemsList.add(new Item(9,R.raw.brownnoise,R.drawable.brownnoise,false, true));
+        itemsList.add(new Item(10,R.raw.rain,R.drawable.rain,false, false));
+        itemsList.add(new Item(11,R.raw.thunder,R.drawable.thunder,true, true));
+        itemsList.add(new Item(12,R.raw.cat_purr,R.drawable.catpurr,false, true));
+        itemsList.add(new Item(13,R.raw.windchimes,R.drawable.windchimes,false, false));//Bitmap icon = BitmapFactory.decodeResource(c.getResources(),);
+        list.add(randomOne);
 
         /* itemsList = new ArrayList<>();
        itemsList.add(new Item(0,R.raw.beach,BitmapFactory.decodeResource(c.getResources(),R.drawable.beach)));
@@ -317,8 +322,16 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             @Override
             public void onClick(View view, int position)  {
                Config.inCreaseUserClicks();
-                Log.e("TAG","on addRecycleTouchListener  ");
-                if(!Config.isUserPaid()&&Config.isClicksLimitExhausted()){
+                Log.e("Bill","on addRecycleTouchListener  ");
+                if(itemsList.get(position).getisLocked()){
+                    // Pop the purchase dialogue
+                    if(!pref.getisPaidUser()){
+
+                        bp.purchase(MainActivity.this, Config.UNLOCK_PRODUCT_ID);
+                        // onProductPurchased("",  null);
+                    }
+                }
+               /* if(!Config.isUserPaid()&&Config.isClicksLimitExhausted()){
                     if (mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();
                     } else {
@@ -326,7 +339,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                     }
                     mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-                }
+                }*/
 
             }
 
@@ -343,7 +356,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+    @Override
+    public void onDestroy() {
+        if (bp != null) {
+            bp.release();
+        }
+        super.onDestroy();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -546,7 +565,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     }
     public void clickRandom(){
-
         if(recyclerView!=null){
 
                     if(!onRand){
@@ -564,17 +582,43 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
             for(int ids: randomIDs){
                 Log.e("MainActivity","relax ids = "+ids);
-
                 recyclerView.findViewHolderForAdapterPosition(ids).itemView.findViewById(R.id.icon_med).performClick();
             }
-
-
-
                     Log.e("preset","on handler perform Random");
-
         }
+    }
 
+    @Override
+    public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
+        Log.v("Bill","User has made the purchase of prod "+productId);
+        if(pref!=null){
+            pref.setisPaidUser(true);
+            if(recyclerView != null){
+                recyclerView.getAdapter().notifyDataSetChanged();
+            }
+        }
+    }
+
+    @Override
+    public void onPurchaseHistoryRestored() {
+        Log.e("TAG","onPurchaseHistoryRestored ");
+    }
+
+    @Override
+    public void onBillingError(int errorCode, @Nullable Throwable error) {
+        Log.e("TAG","onBillingError ");
 
     }
 
+    @Override
+    public void onBillingInitialized() {
+        Log.e("TAG","onBillingInitialized ");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }

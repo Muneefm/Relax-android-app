@@ -23,6 +23,8 @@ import java.util.Random;
  */
 
 public class Config {
+    public static String RSA_PLAYSTORE = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz0X266Y6nI+Z/fDFlboueuEjgnHylNBSzsqSy+exDYjMK1hkCYZ9qKdX60ZWeXLudMFHL20o7BO93VSR81oTZOFAEZEl8emCbGYLwcZOcaAFppFd66HZpPcDqi5KvPC/nTYJmEf9oQVPUzVxzokUkRArisABdtQwnPfjXSrRH+SxORusHeRTzRq4Nugf88Xs/DkPB2UstQW2tCMYyijN8otVPEFg5gTlRYqjyvfBhF+gMCqasXbJSvL73ek6f6Jw8Pz9I3OFzcdHB0yStQ7i6x52mhP+712pAlzmtgsLsm9W4tofE+AQcMGc/CVzdTAChoRLInqunmqkQQK2d1iuUQIDAQAB";
+    public static String UNLOCK_PRODUCT_ID = "unlock_sound";
     static int prevRandom=100;
     static int prevRandomRelax = 100;
     static int relaxI = 0;

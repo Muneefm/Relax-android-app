@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Relax.iml" filepath="$PROJECT_DIR$/Relax.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Relax-android-app.iml" filepath="$PROJECT_DIR$/Relax-android-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

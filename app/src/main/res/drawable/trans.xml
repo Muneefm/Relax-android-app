@@ -1,34 +1,34 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:drawable="@drawable/grad4"
-        android:duration="4000" />
+<item
+    android:drawable="@drawable/grad4"
+    android:duration="4000" />
 
-    <item
-        android:drawable="@drawable/grad5"
-        android:duration="4000" />
+<item
+    android:drawable="@drawable/grad5"
+    android:duration="4000" />
 
-    <item
-        android:drawable="@drawable/grad6"
-        android:duration="4000" />
+<item
+    android:drawable="@drawable/grad6"
+    android:duration="4000" />
 
-    <item
-        android:drawable="@drawable/gradient1"
-        android:duration="4000" />
+<item
+    android:drawable="@drawable/gradient1"
+    android:duration="4000" />
 
-    <item
-        android:drawable="@drawable/gradient2"
-        android:duration="4000" />
+<item
+    android:drawable="@drawable/gradient2"
+    android:duration="4000" />
 
-    <item
-        android:drawable="@drawable/gradient3"
-        android:duration="4000" />
-    <!--<item
-        android:drawable="@drawable/grad7"
-        android:duration="4000" />-->
-   <!-- <item
-        android:drawable="@drawable/grad8"
-        android:duration="4000" />
-    <item
-        android:drawable="@drawable/grad9"
-        android:duration="4000" />-->
+<item
+    android:drawable="@drawable/gradient3"
+    android:duration="4000" />
+<!--<item
+    android:drawable="@drawable/grad7"
+    android:duration="4000" />-->
+<!-- <item
+     android:drawable="@drawable/grad8"
+     android:duration="4000" />
+ <item
+     android:drawable="@drawable/grad9"
+     android:duration="4000" />-->
 </animation-list>

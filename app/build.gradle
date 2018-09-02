@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.mnf.relax"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 6
-        versionName "1.6"
+        versionCode 8
+        versionName "1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -43,6 +43,7 @@ dependencies {
     compile 'com.github.Angtrim:Android-Five-Stars-Library:v3.1'
     compile 'com.google.firebase:firebase-database:11.6.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
 
 
 }

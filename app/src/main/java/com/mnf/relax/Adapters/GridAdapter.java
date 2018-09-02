@@ -19,10 +19,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mnf.relax.LaunchActivity;
 import com.mnf.relax.MainActivity;
 import com.mnf.relax.Misc.Config;
+import com.mnf.relax.Misc.PreferensHandler;
 import com.mnf.relax.Models.Item;
 import com.mnf.relax.R;
 import com.squareup.picasso.Picasso;
@@ -40,30 +42,18 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
     List<Item> mDataset;
     MediaPlayer[] mediaPlayers;
     private int mSelectedItemPosition = -1;
+    PreferensHandler pref;
 
 
     public GridAdapter(Context context,List<Item> models){
         this.c = context;
         this.mDataset = models;
         this.mediaPlayers = new  MediaPlayer[mDataset.size()];
+        pref = new PreferensHandler(c);
 
     }
 
     public boolean stopAllMedia(){
-       /* for (MediaPlayer player: mediaPlayers ) {
-            if (player != null) {
-                if (player.isPlaying()) {
-                    player.stop();
-                    player.release();
-                    player = null;
-                    Log.e("TAG", "stop ");
-
-                }
-            }
-
-
-        }*/
-
         for(int i = 0;i < mediaPlayers.length; i++){
             if (mediaPlayers[i] != null) {
                 if (mediaPlayers[i].isPlaying()) {
@@ -98,7 +88,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public CardView cv;
-        public ImageView imIcon;
+        public ImageView imIcon, lockIcon;
         public SeekBar seekBar;
         // TagView tagGroup;
 
@@ -108,7 +98,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
         public ViewHolder(View view) {
             super(view);
             Log.e("ViewHolder","on gridadapter viewHolder "+getAdapterPosition());
-
+            lockIcon = view.findViewById(R.id.lock_img);
             imIcon = view.findViewById(R.id.icon_med);
             seekBar = view.findViewById(R.id.volume_seek);
             cv = view.findViewById(R.id.myCardView);
@@ -129,6 +119,10 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
                 @Override
                 public void onClick(View view) {
                     Log.e("TAG","click position is ="+getAdapterPosition());
+                    if(mDataset.get(getAdapterPosition()).getisLocked() && (!pref.getisPaidUser())){
+                        Toast.makeText(c, "Please purchase pro pack to play this",Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     try {
                         startPLay(getAdapterPosition(),seekBar,imIcon);
                     } catch (IOException e) {
@@ -177,6 +171,11 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
         //Picasso.with(c).load(item.getImage()).into(holder.imIcon);
 
         holder.imIcon.setImageBitmap(BitmapFactory.decodeResource(c.getResources(),item.getImage()));
+        if(mDataset.get(position).getisLocked() && (!pref.getisPaidUser())){
+            holder.lockIcon.setVisibility(View.VISIBLE);
+        }else{
+            holder.lockIcon.setVisibility(View.GONE);
+        }
 
 
         //holder.imIcon.setImageDrawable(c.getResources().getDrawable(item.getImage()));

@@ -11,13 +11,15 @@ public class Item {
     int image;
     int id;
     boolean isPlaying;
+    boolean isLocked;
 
 
-    public Item(int id, int play,int image,boolean isPlaying){
+    public Item(int id, int play,int image,boolean isPlaying, boolean isLocked){
         this.image = image;
         this.id = id;
         this.play = play;
         this.isPlaying = isPlaying;
+        this.isLocked = isLocked;
     }
 
     public void setId(int id) {
@@ -52,6 +54,16 @@ public class Item {
     public boolean getisPLaying() {
         return isPlaying;
     }
+
+    public void setisLocked(boolean isLock) {
+        this.isLocked = isLock;
+    }
+
+
+    public boolean getisLocked() {
+        return isLocked;
+    }
+
 
 
 
