@@ -21,6 +21,7 @@ public class PreferensHandler {
     final String click_count = "clicks";
     final String paid_user = "paid_user";
     final String first_time_user = "first_user";
+    final String trial = "trial_app";
 
 
 
@@ -50,6 +51,14 @@ public class PreferensHandler {
         editor.commit();
     }
 
+    public void setisTrial(boolean var){
+        editor.putBoolean(trial,var );
+        editor.commit();
+    }
+
+    public boolean getisTrial(){
+        return pref.getBoolean(trial, false);
+    }
 
     public void setisPaidUser(boolean var){
         editor.putBoolean(paid_user,var );
@@ -57,6 +66,12 @@ public class PreferensHandler {
     }
 
     public boolean getisPaidUser(){
+        if(getisTrial()){
+            Log.e("Pref","getisTrial returning true");
+            return true;
+        }else{
+            Log.e("Pref","getisTrial else");
+        }
         return pref.getBoolean(paid_user, false);
     }
 

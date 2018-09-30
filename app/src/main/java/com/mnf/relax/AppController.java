@@ -22,7 +22,7 @@ public class AppController extends Application {
         MobileAds.initialize(this, "ca-app-pub-7269223551241818~1769329201");
         context = this;
         pref = new PreferensHandler(getInstance());
-        //pref.setisPaidUser(true);
+        pref.setisTrial(true);
     }
 
     public static Context getInstance(){

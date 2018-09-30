@@ -16,7 +16,7 @@ import android.widget.TextView;
 public class CreditScreen extends AppCompatActivity {
 
     TextView tvOne,tvTwo,tvThree,tvBottom,url, tvICone,tvICtwo,tvICthree,rateHead;
-    CardView cvRate;
+    CardView cvRate, privacyPolicy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,8 @@ public class CreditScreen extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+
+
         tvOne = findViewById(R.id.tv_one);
         tvTwo = findViewById(R.id.tv_two);
         tvBottom = findViewById(R.id.tv_bottom);
@@ -42,6 +44,7 @@ public class CreditScreen extends AppCompatActivity {
         tvICtwo = findViewById(R.id.tv_ic_two);
         tvICthree = findViewById(R.id.tv_ic_three);
         cvRate = findViewById(R.id.rate_card);
+        privacyPolicy = findViewById(R.id.privacy_policy);
 
 
         Typeface font =Typeface.createFromAsset(getAssets(), "fonts/BerkshireSwash-Regular.ttf");
@@ -104,6 +107,17 @@ public class CreditScreen extends AppCompatActivity {
                 } catch (android.content.ActivityNotFoundException anfe) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                 }
+            }
+        });
+
+
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://muneefm.github.io/peacely_privacy_policy/";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
     }
